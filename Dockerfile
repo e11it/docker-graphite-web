@@ -29,9 +29,9 @@ ADD ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 # Initialize database(sqlite3)
 RUN 	cd /opt/graphite/webapp/graphite && django-admin.py syncdb --settings=graphite.settings --noinput && \
-	cd /opt/graphite/webapp/graphite && django-admin.py loaddata --settings=graphite.settings initial_data.json && \
-	touch /opt/graphite/storage/index && \
-	chown -R graphite:graphite /opt/graphite /var/log/graphite
+        cd /opt/graphite/webapp/graphite && django-admin.py loaddata --settings=graphite.settings initial_data.json && \
+	    touch /opt/graphite/storage/index && \
+	    chown -R graphite:graphite /opt/graphite /var/log/graphite
 
 WORKDIR /opt/graphite/webapp
 EXPOSE 80
