@@ -50,7 +50,7 @@ if os.getenv("TZ"):
 
 if os.getenv("STORAGE_FINDERS"):
     STORAGE_FINDERS = os.getenv("STORAGE_FINDERS").split(',')
-#else:
-#    STORAGE_FINDERS = (
-#        'graphite.graphouse.GraphouseFinder',
-#    )
+else:
+    STORAGE_FINDERS = (
+        'graphite.graphouse.GraphouseFinder',
+    )
