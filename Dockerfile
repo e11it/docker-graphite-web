@@ -5,7 +5,7 @@ MAINTAINER <im@e11it.ru>
 
 RUN	apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py-cairo tzdata
 	
-RUN pip install --no-binary=:all: ttps://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz
+RUN pip install --no-binary=:all: https://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz
 
 RUN	addgroup -S graphite && \
 	adduser -S graphite -G graphite && \
