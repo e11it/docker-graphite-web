@@ -1,6 +1,7 @@
 FROM alpine:3.4
 
-MAINTAINER Alex Akulov <alexakulov86@gmail.com>
+# ORIGINAL MAINTAINER Alex Akulov <alexakulov86@gmail.com>
+MAINTAINER <im@e11it.ru>
 
 RUN	apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py-cairo tzdata
 	
@@ -23,6 +24,7 @@ ENV	TZ=UTC \
 ADD ./config/graphite_wsgi.py /opt/graphite/conf/graphite_wsgi.py
 ADD ./config/local_settings.py /opt/graphite/webapp/graphite/local_settings.py
 ADD ./config/initial_data.json /opt/graphite/webapp/graphite/initial_data.json
+ADD ./config/graphouse.py /opt/graphite/webapp/graphite/graphouse.py
 ADD ./config/nginx.conf /etc/nginx/nginx.conf
 ADD ./config/supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh

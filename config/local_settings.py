@@ -47,3 +47,10 @@ if os.getenv("BAN_PREFIX"):
 
 if os.getenv("TZ"):
     TIME_ZONE = os.getenv("TZ")
+
+if os.getenv("STORAGE_FINDERS"):
+    STORAGE_FINDERS = os.getenv("STORAGE_FINDERS").split(',')
+else:
+    STORAGE_FINDERS = (
+        'graphite.graphouse.GraphouseFinder',
+    )
