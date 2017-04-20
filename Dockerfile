@@ -4,8 +4,11 @@ FROM alpine:3.4
 MAINTAINER <im@e11it.ru>
 
 RUN	apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py-cairo tzdata
-	
-RUN pip install https://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz whisper
+
+ADD requirements.txt /tmp/requirements.txt
+
+RUN pip install https://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz && \
+    pip install -r /tmp/requirements.txt
 
 RUN	addgroup -S graphite && \
 	adduser -S graphite -G graphite && \
@@ -28,9 +31,7 @@ ADD ./config/supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 # Initialize database(sqlite3)
-RUN 	cd /opt/graphite/webapp/graphite && django-admin.py syncdb --settings=graphite.settings --noinput && \
-        cd /opt/graphite/webapp/graphite && django-admin.py loaddata --settings=graphite.settings initial_data.json && \
-	    touch /opt/graphite/storage/index && \
+RUN 	cd /opt/graphite/webapp/graphite && migrate --run-syncdb --settings=graphite.settings --pythonpath=webapp && \
 	    chown -R graphite:graphite /opt/graphite /var/log/graphite
 
 WORKDIR /opt/graphite/webapp
