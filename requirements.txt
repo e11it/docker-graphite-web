@@ -13,3 +13,4 @@ whisper
 whitenoise
 scandir
 urllib3
+requests

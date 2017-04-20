@@ -1,14 +1,15 @@
-FROM alpine:3.4
+FROM alpine:latest
 
 # ORIGINAL MAINTAINER Alex Akulov <alexakulov86@gmail.com>
 MAINTAINER <im@e11it.ru>
 
-RUN	apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py-cairo tzdata
+RUN	apk -U upgrade && apk -U add python ca-certificates && update-ca-certificates && \
+    apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py-cairo tzdata
 
 ADD requirements.txt /tmp/requirements.txt
 
 RUN pip install https://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz && \
-    pip install --trusted-host pypi.python.org -r /tmp/requirements.txt 
+    pip install -r /tmp/requirements.txt --trusted-host pypi.python.org 
 
 RUN	addgroup -S graphite && \
 	adduser -S graphite -G graphite && \
@@ -31,7 +32,7 @@ ADD ./config/supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 # Initialize database(sqlite3)
-RUN 	cd /opt/graphite/webapp/graphite && migrate --run-syncdb --settings=graphite.settings --pythonpath=webapp && \
+RUN 	cd /opt/graphite/webapp/graphite && django-admin.py migrate --run-syncdb --settings=graphite.settings --pythonpath=webapp && \
 	    chown -R graphite:graphite /opt/graphite /var/log/graphite
 
 WORKDIR /opt/graphite/webapp
