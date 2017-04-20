@@ -48,6 +48,9 @@ if os.getenv("BAN_PREFIX"):
 if os.getenv("TZ"):
     TIME_ZONE = os.getenv("TZ")
 
+if os.getenv("GRAPHOUSE_URL"):
+    GRAPHOUSE_URL = os.getenv("GRAPHOUSE_URL")
+
 if os.getenv("STORAGE_FINDERS"):
     STORAGE_FINDERS = os.getenv("STORAGE_FINDERS").split(',')
 else:
