@@ -7,8 +7,8 @@ RUN	apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py-
 
 ADD requirements.txt /tmp/requirements.txt
 
-RUN pip install https://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz && \
-    pip install -r /tmp/requirements.txt
+RUN pip install --trusted-host https://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz && \
+    pip install --trusted-host -r /tmp/requirements.txt
 
 RUN	addgroup -S graphite && \
 	adduser -S graphite -G graphite && \
