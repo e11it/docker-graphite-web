@@ -8,7 +8,7 @@ RUN	apk -U upgrade && apk -U add python ca-certificates && update-ca-certificate
 
 ADD requirements.txt /tmp/requirements.txt
 
-RUN pip install https://github.com/graphite-project/graphite-web/archive/1.0.0.tar.gz && \
+RUN pip install https://github.com/graphite-project/graphite-web/archive/1.0.2.tar.gz && \
     pip install -r /tmp/requirements.txt --trusted-host pypi.python.org 
 
 RUN	addgroup -S graphite && \
