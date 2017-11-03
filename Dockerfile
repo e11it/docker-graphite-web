@@ -4,7 +4,7 @@ FROM alpine:latest
 MAINTAINER <im@e11it.ru>
 
 RUN	apk -U upgrade && apk -U add python ca-certificates && update-ca-certificates && \
-    apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py-cairo tzdata
+    apk add --no-cache nginx supervisor build-base python-dev py-pip py-cffi py2-cairo tzdata
 
 ADD requirements.txt /tmp/requirements.txt
 
